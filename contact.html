@@ -168,7 +168,8 @@
           <div class="col-md-8">
             <h3 class="bg-theme-colored p-15 pl-30 mb-0 text-white">Send Us Your Message</h3>
             <!-- Contact Form -->
-            <form id="volunteer_apply_form" class="bg-light p-30 pb-15" name="job_apply_form" action="golden-mail.php" method="post" enctype="multipart/form-data">
+            <form id="volunteer_apply_form" class="bg-light p-30 pb-15" name="job_apply_form" action="https://formspree.io/f/xknldowo"
+                    method="POST" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
@@ -208,7 +209,14 @@
                 </div>
                 <div class="form-group">
                   <input id="form_botcheck" name="form_botcheck" class="form-control" type="hidden" value="" />
-                  <button type="submit" class="btn btn-block btn-dark btn-theme-colored btn-sm mt-20 pt-10 pb-10" data-loading-text="Please wait...">Send</button>
+                  <button
+                        type="button"
+                        onclick="submitForm()"
+                        class="btn btn-block btn-dark btn-theme-colored btn-sm mt-20 pt-10 pb-10"
+                        data-loading-text="Please wait..."
+                      >
+                        Apply Now
+                      </button>
                 </div>
               </form>
               <!-- Job Form Validation-->
@@ -418,7 +426,33 @@
 <!-- Footer Scripts -->
 <!-- JS | Custom script for all pages -->
 <script src="js/custom.js"></script>
+<script>
+      function submitForm() {
+        // Reference to the form
+        var form = document.getElementById("volunteer_apply_form");
 
+        // Perform form submission using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open(form.method, form.action, true);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState !== XMLHttpRequest.DONE) return;
+          if (xhr.status === 200) {
+            // Form submission successful
+            alert("Application successful!");
+            // You can optionally reset or hide the form
+            form.reset();
+          } else {
+            // Form submission failed
+            alert("Error submitting application. Please try again.");
+          }
+        };
+
+        // Prepare form data for submission
+        var formData = new FormData(form);
+        xhr.send(formData);
+      }
+    </script>
 </body>
 
 <!-- page-contact-style318:19-->
